@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "shell.h"
+#include <sys/wait.h>
 #include <unistd.h>
 
 /**
@@ -14,35 +15,35 @@ int main()
 	ssize_t characters;
 	char *token, *buffer;
 
-	buffer = malloc(buffsize * sizeof(char));
-	if (buffer == NULL)
+	while (1)
 	{
-		fprintf(stderr, "memory allocation failed\n");
-		return (-1);
-	}
-	printf("$ ");
-	characters = getline(&buffer, &buffsize, stdin);
-	if (characters == -1)
-	{
-		fprintf(stderr, "getline failed\n");
+		buffer = malloc(buffsize * sizeof(char));
+		if (buffer == NULL)
+		{
+			fprintf(stderr, "memory allocation failed\n");
+			return (-1);
+		}
+		printf("$ ");
+		characters = getline(&buffer, &buffsize, stdin);
+		if (characters == -1)
+		{
+			printf("logout\n");
+			free(buffer);
+			exit(-1);
+		}
+		token = strtok(buffer, " ");
+		if (token != NULL && strcmp(token, "exit") == 0)
+		{
+			printf("process ended\n");
+			free(buffer);
+			exit(0);
+		}
+		while (token != NULL)
+		{
+			printf("%s\n", token);
+			token = strtok(NULL, " ");
+		}
 		free(buffer);
-		exit(-1);
+		printf("ran till the end\n");
 	}
-	printf("getline worked\n");
-	token = strtok(buffer, " ");
-	printf("strtok worked\n");
-	if (token != NULL && strcmp(token, "exit") == 0)
-	{
-		printf("process ended\n");
-		free(buffer);
-		return (0);
-	}
-	while (token != NULL)
-	{
-		printf("%s\n", token);
-		token = strtok(NULL, " ");
-	}
-	free(buffer);
-	printf("ran till the end\n");
-	return (0);
 }
