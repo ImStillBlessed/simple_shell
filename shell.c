@@ -32,7 +32,7 @@ int main()
 			exit(-1);
 		}
 		token = strtok(buffer, " ");
-		if (token != NULL && strcmp(token, "exit") == 0)
+		if (token != NULL && strcmp(token, "1") == 0)
 		{
 			printf("process ended\n");
 			free(buffer);
