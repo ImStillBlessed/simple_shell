@@ -9,33 +9,40 @@
 int main(void)
 {
     char *cmd = NULL, *cmd_cpy = NULL, *token = NULL;
-    char *delim = " \n";
+    char *delim = " \n"; /* the delimiter to seperate the strings input */
     size_t buff = 0;
     int ac, i = 0;
-    char **av = NULL;
+    char **av = NULL; /* argv; argument vector array */
+    pid_t pid;
+    int val = 0;/* for execve */
 
     while (1)
     {
-        printf("$ ");
+        printf("$ "); /* default display on the trminal */
+
         if (getline(&cmd, &buff, stdin) == -1)
-        {
+        {/* getline is already called, checking for failure */
             perror("Failed to read line");
             return (-1);
         }
-        cmd_cpy = strdup(cmd);
-        token = strtok(cmd, delim);
+
+        cmd_cpy = strdup(cmd);/* copy the buffer cmd into cmd_cpy*/
+
+        token = strtok(cmd, delim);/* seperate the input string into words */
+
         if (strcmp(token, "exit") == 0)
-        {
+        {/* check if the first input string in exit */
             free(cmd);
-            return (0);
+            return (0);/* end program */
         }
         while (token)
-        {
+        {/* count the rest of the words */
             token = strtok(NULL, delim);
             ac++;
         }
-        av = malloc(sizeof(char *) * ac);
+        av = malloc(sizeof(char *) * ac);/* allocate memory for argv*/
 
+/* form here we collect and arrange the input words to be used as commands */
         token = strtok(cmd_cpy, delim);
 
         while (token)
@@ -46,5 +53,19 @@ int main(void)
         }
 
         av[i] = NULL;
+
+        /* child process*/
+        pid = fork();
+        if (pid == 0)
+        {/* if we are in child process */
+            val = execve(av[0], av, NULL);/* NULL cause enve nor gooten yet*/
+            if (val == -1)
+                perror("Wrong command\n");
+        }
+        else
+        {/* we are in parent process */
+            wait(NULL);
+        }
+        
     }   
 }

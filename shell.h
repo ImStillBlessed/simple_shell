@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "shell.h"
-// #include <sys/wait.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 ssize_t cat(const char *name);
