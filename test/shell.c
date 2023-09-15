@@ -1,20 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "shell.h"
-#include <sys/wait.h>
-#include <unistd.h>
 
 /**
- * main - Entry point to the simole shell program.
+ * main - Entry point to the simple shell program.
  * Return: 0 on success -1 on failure.
  */
-int main()
+int main(void)
 {
-	size_t buffsize = 32;
-	ssize_t characters;
-	char *token, *buffer;
-	char *tok_buf[32];
+	size_t buffsize = 0;
+	char *delim = " \n";
+	char *token, *buffer = NULL, *buffcpy = NULL;
 
 	while (1)
 	{
@@ -25,14 +19,13 @@ int main()
 			return (-1);
 		}
 		printf("$ ");
-		characters = getline(&buffer, &buffsize, stdin);
-		if (characters == -1)
+		if (getline(&buffer, &buffsize, stdin) == -1)
 		{
 			printf("logout\n");
 			free(buffer);
 			exit(-1);
 		}
-		token = strtok(buffer, " ");
+		token = strtok(buffer, delim);
 		if (token != NULL)
 		{
 			if (strcmp(token, "exit") == 0)
@@ -43,13 +36,13 @@ int main()
 			}
 			if (strcmp(token, "cat") == 0)
 			{
-				token = strtok(NULL, " ");
+				token = strtok(NULL, delim);
 				cat(token);
 			}
 			while (token != NULL)
 			{
 				printf("%s\n", token);
-				token = strtok(NULL, " ");
+				token = strtok(NULL, delim);
 			}
 		}
 		free(buffer);
