@@ -41,6 +41,11 @@ int main(void)
             ac++;
         }
         av = malloc(sizeof(char *) * ac);/* allocate memory for argv*/
+        if (av == NULL)
+		{
+			perror("memory allocation failed\n");
+			return (-1);
+		}
 
 /* form here we collect and arrange the input words to be used as commands */
         token = strtok(cmd_cpy, delim);
@@ -51,19 +56,22 @@ int main(void)
             token = strtok(NULL, delim);
             i++;
         }
-
+        printf("tokenised successfully");
         av[i] = NULL;
 
         /* child process*/
+        printf("before fork\n");
         pid = fork();
         if (pid == 0)
-        {/* if we are in child process */
-            val = execve(av[0], av, NULL);/* NULL cause enve nor gooten yet*/
+        {/* we are in child process */
+        printf("child process\n");
+            val = execve(av[0], av, NULL);/* NULL cause enve nor gotten yet */
             if (val == -1)
                 perror("Wrong command\n");
         }
         else
         {/* we are in parent process */
+            printf("parent process\n");
             wait(NULL);
         }
         
