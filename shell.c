@@ -61,11 +61,9 @@ int main(void)
             token = strtok(NULL, delim);
             i++;
         }
-        printf("tokenised successfully");
         av[i] = NULL;
 
         /* child process*/
-        printf("before fork\n");
         pid = fork();
         if (pid == -1)
         {
@@ -75,7 +73,6 @@ int main(void)
         
         else if (pid == 0)
         {/* we are in child process */
-        printf("child process\n");
             val = execve(av[0], av, NULL);/* NULL cause enve nor gotten yet */
             if (val == -1)
                 perror("Wrong command\n");
@@ -84,10 +81,9 @@ int main(void)
         }
         else
         {/* we are in parent process */
-            printf("parent process\n");
             wait(NULL);
+            free(av);
         }
-        free(av);
     }
     free(cmd);
     free(cmd_cpy);
