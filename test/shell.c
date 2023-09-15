@@ -14,6 +14,7 @@ int main()
 	size_t buffsize = 32;
 	ssize_t characters;
 	char *token, *buffer;
+	char *tok_buf[32];
 
 	while (1)
 	{
@@ -32,16 +33,24 @@ int main()
 			exit(-1);
 		}
 		token = strtok(buffer, " ");
-		if (token != NULL && strcmp(token, "1") == 0)
+		if (token != NULL)
 		{
-			printf("process ended\n");
-			free(buffer);
-			exit(0);
-		}
-		while (token != NULL)
-		{
-			printf("%s\n", token);
-			token = strtok(NULL, " ");
+			if (strcmp(token, "exit") == 0)
+			{
+				printf("process ended\n");
+				free(buffer);
+				return (0);
+			}
+			if (strcmp(token, "cat") == 0)
+			{
+				token = strtok(NULL, " ");
+				cat(token);
+			}
+			while (token != NULL)
+			{
+				printf("%s\n", token);
+				token = strtok(NULL, " ");
+			}
 		}
 		free(buffer);
 		printf("ran till the end\n");
