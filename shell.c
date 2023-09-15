@@ -23,6 +23,7 @@ int main(void)
         if (getline(&cmd, &buff, stdin) == -1)
         {/* getline is already called, checking for failure */
             perror("Failed to read line");
+            free(cmd), free(cmd_cpy), free(av);
             return (-1);
         }
 
@@ -30,25 +31,29 @@ int main(void)
 
         token = strtok(cmd, delim);/* seperate the input string into words */
 
-        if (strcmp(token, "exit") == 0)
+        if (token && strcmp(token, "exit") == 0)
         {/* check if the first input string in exit */
-            free(cmd);
+            free(cmd), free(cmd_cpy), free(av);
             return (0);/* end program */
         }
+        ac = 0;
+
         while (token)
         {/* count the rest of the words */
             token = strtok(NULL, delim);
             ac++;
         }
-        av = malloc(sizeof(char *) * ac);/* allocate memory for argv*/
+        av = malloc(sizeof(char *) * (ac + 1));/* allocate memory for argv*/
         if (av == NULL)
 		{
-			perror("memory allocation failed\n");
-			return (-1);
+			perror("argv memory allocation failed\n");
+            free(cmd),  free(cmd_cpy);
+            continue;
 		}
 
 /* form here we collect and arrange the input words to be used as commands */
         token = strtok(cmd_cpy, delim);
+        i = 0;
 
         while (token)
         {
@@ -62,18 +67,29 @@ int main(void)
         /* child process*/
         printf("before fork\n");
         pid = fork();
-        if (pid == 0)
+        if (pid == -1)
+        {
+            perror("fork failed\n");
+            free(cmd), free(cmd_cpy), free(av);
+        }
+        
+        else if (pid == 0)
         {/* we are in child process */
         printf("child process\n");
             val = execve(av[0], av, NULL);/* NULL cause enve nor gotten yet */
             if (val == -1)
                 perror("Wrong command\n");
+            free(cmd), free(cmd_cpy), free(av);
+            exit(EXIT_FAILURE);
         }
         else
         {/* we are in parent process */
             printf("parent process\n");
             wait(NULL);
         }
-        
-    }   
+        free(av);
+    }
+    free(cmd);
+    free(cmd_cpy);
+    return (0);
 }
