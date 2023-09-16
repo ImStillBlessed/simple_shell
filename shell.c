@@ -16,6 +16,18 @@ int main(void)
     pid_t pid;
     int val = 0;/* for execve */
 
+    /**
+     * setting the PATH variable so the commands can be called directly.
+    */
+    char *new_path = "/c/Users/USER/bin:/mingw64/bin:/usr/local/bin:/usr/bin:/bin:/mingw64/bin:/usr/bin:/c/Users/USER/bin:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0:/c/Windows/System32/OpenSSH:/c/Program Files/IBM/SPSS/Statistics/22/JRE/bin:/c/MinGW/bin:/cmd:/mingw64/bin:/usr/bin:/c/Users/USER/AppData/Local/Microsoft/WindowsApps:/c/Users/USER/AppData/Local/Programs/Microsoft VS Code/bin:/usr/bin/vendor_perl:/usr/bin/core_perl";
+    if (setenv("PATH", new_path, 1) == -1)
+    {
+        perror("Unable to set PATH");
+        free(cmd), free(cmd_cpy), free(av);
+        return (-1);
+    }
+    
+
     while (1)
     {
         printf("$ "); /* default display on the trminal */
