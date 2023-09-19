@@ -78,17 +78,17 @@ and paste it in the buffer @cmd*/
         av[i] = NULL;
 
 /*check if the command is 'cd' to change directory*/
-        if (strcmp(token, "cd") == 0)
+        if (strcmp(av[0], "cd") == 0)
         {
             if (ac != 2)
             {
-                perror("wrong argument")
+                perror("wrong argument");
             }
             else
             {
                 if (chdir(av[1]) != 0)
                 {
-                    perror("error")
+                    perror("error");
                 }
             }
         }
