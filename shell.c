@@ -89,8 +89,8 @@ and paste it in the buffer @cmd*/
         
         else if (pid == 0)
         {/* we are in child process */
-            val = execve(av[0], av, NULL);/* NULL cause enve nor gotten yet */
-            if (val == -1)
+            execvp(av[0], av);
+            if (val == -1)/*file not executable*/
                 perror("Wrong command\n");
             free(cmd), free(cmd_cpy), free(av);
             exit(EXIT_FAILURE);
