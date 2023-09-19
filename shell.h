@@ -11,5 +11,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+char **split(char *str, int count);
+int count(char *str);
 
 #endif/* SHELL_H */
