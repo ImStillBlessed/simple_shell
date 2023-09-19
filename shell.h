@@ -11,7 +11,5 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-ssize_t cat(const char *name);
-
 
 #endif/* SHELL_H */
