@@ -2,7 +2,6 @@
 
 /**
  * main - Entry point for the Simple shell program
- * 
  * Return: 0 on successful exit, -1 on errors encountered.
  */
 
@@ -27,24 +26,19 @@ int main(void)
 		ac = count(cmd_cpy);
 		if (ac == -1)
 			continue;
-		av = malloc(sizeof(char *) * (ac + 1));
-		if (av == NULL)
-                {
-			perror("argv memory allocation failed\n");
-			free(cmd), free(cmd_cpy);
-			continue;
-		}
 		av = split(cmd, ac);
 		if (av[0] && strcmp(av[0], "exit") == 0)
 		{/* check if the first input string in exit */
-			free(cmd), free(cmd_cpy), free(av);
+			free(cmd);
+			free(cmd_cpy);
+			free(av);
 			return (0);/* end program */
 		}
 		if (strcmp(av[0], "cd") == 0)
 		{
 			if (ac != 2)
 			{
-				perror("wrong arguments");
+				perror("bash: cd: too many arguments\n");
 				continue;
 			}
 			else if (chdir(av[1]) != 0)
@@ -68,7 +62,9 @@ int main(void)
 		}
 	}
 	perror("problem");
-	free(cmd), free(cmd_cpy), free(av);
+	free(cmd);
+	free(cmd_cpy);
+	free(av);
 	return (0);
 }
 
