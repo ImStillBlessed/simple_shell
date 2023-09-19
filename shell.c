@@ -9,17 +9,17 @@
 int main(void)
 {
     char *cmd = NULL, *cmd_cpy = NULL, *token = NULL;
-    char *delim = " \n"; /* the delimiter to seperate the strings input */
+    char *delim = " \n";/* the delimiter to seperate the strings input */
     size_t buff = 0;
     int ac, i = 0;
-    char **av = NULL; /* argv; argument vector array */
+    char **av = NULL;/* argv; argument vector array */
     pid_t pid;
     int val = 0;/* for execve */
 
     /**
      * setting the PATH variable so the commands can be called directly.
     */
-    char *new_path = "/usr/local/bin:/usr/bin:/bin";
+    char *new_path = "/bin/";
     if (setenv("PATH", new_path, 1) == -1)
     {
         perror("Unable to set PATH");
@@ -28,10 +28,12 @@ int main(void)
     }
     
 
-    while (1)
+    while (1)/*while loop continues indefinately*/
     {
-        printf("$ "); /* default display on the trminal */
+        printf("$ "); /* default display on the terminal */
 
+/*getline is used to collect input fron the standard input. (stdin)
+and paste it in the buffer @cmd*/
         if (getline(&cmd, &buff, stdin) == -1)
         {/* getline is already called, checking for failure */
             perror("Failed to read line");
@@ -74,6 +76,8 @@ int main(void)
             i++;
         }
         av[i] = NULL;
+
+        /*check if the command is executable*/
 
         /* child process*/
         pid = fork();
