@@ -26,7 +26,7 @@ int main(void)
 		if (ac == -1)
 			continue;
 		av = split(cmd, ac);
-		check(av,ac);
+		check(av, ac);
 		pid = fork();
 		if (pid == -1)
 		{
@@ -36,7 +36,7 @@ int main(void)
 		else if (pid == 0)
 		{/* we are in child process */
 			if (execvp(av[0], av) == -1)/*file not executable*/
-				break;
+				return (0);
 		}
 		else
 		{/* we are in parent process */
@@ -47,7 +47,6 @@ int main(void)
 		free(cmd_cpy);
 		free(av);
 	}
-	return (0);
 }
 
 int check(char **args, int argc)
