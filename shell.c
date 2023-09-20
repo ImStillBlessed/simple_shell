@@ -49,6 +49,12 @@ int main(void)
 	}
 }
 
+/**
+ * check - checks if the string entered is an inbuilt command
+ * @args: the array of words entered
+ * @argc: number of words entered
+ * Return: 0 on sucess.
+ */
 int check(char **args, int argc)
 {
 	if (args[0] && strcmp(args[0], "exit") == 0)
@@ -91,7 +97,7 @@ int count(char *str)
 }
 
 /**
- * slpit - splits a string into words
+ * split - splits a string into words
  * @str: strimg to split.
  * @count: possible number of words.
  * Return: array of the strings.
