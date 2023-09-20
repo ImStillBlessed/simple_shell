@@ -13,5 +13,6 @@
 
 char **split(char *str, int count);
 int count(char *str);
+int check(char **args, int argc);
 
 #endif/* SHELL_H */

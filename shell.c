@@ -9,7 +9,7 @@ int main(void)
 {
 	char *cmd = NULL, *cmd_cpy = NULL;
 	size_t buff = 0;
-	int ac;
+	int ac, i = 3;
 	char **av = NULL;
 	pid_t pid;
 
@@ -19,7 +19,6 @@ int main(void)
 		if (getline(&cmd, &buff, stdin) == -1)
 		{/* getline is already called, checking for failure */
 			perror("Failed to read line");
-			free(cmd), free(cmd_cpy), free(av);
 			continue;
 		}
 		cmd_cpy = strdup(cmd);
@@ -27,23 +26,7 @@ int main(void)
 		if (ac == -1)
 			continue;
 		av = split(cmd, ac);
-		if (av[0] && strcmp(av[0], "exit") == 0)
-		{/* check if the first input string in exit */
-			free(cmd);
-			free(cmd_cpy);
-			free(av);
-			return (0);/* end program */
-		}
-		if (strcmp(av[0], "cd") == 0)
-		{
-			if (ac != 2)
-			{
-				perror("bash: cd: too many arguments\n");
-				continue;
-			}
-			else if (chdir(av[1]) != 0)
-				perror("error");
-		}
+		check(av,ac);
 		pid = fork();
 		if (pid == -1)
 		{
@@ -60,11 +43,30 @@ int main(void)
 			wait(NULL);
 			free(av);
 		}
+		free(cmd);
+		free(cmd_cpy);
+		free(av);
 	}
-	perror("problem");
-	free(cmd);
-	free(cmd_cpy);
-	free(av);
+	return (0);
+}
+
+int check(char **args, int argc)
+{
+	if (args[0] && strcmp(args[0], "exit") == 0)
+	{
+		free(args);
+		exit(EXIT_SUCCESS);
+	}
+	if (strcmp(args[0], "cd") == 0)
+	{
+		if (argc != 2)
+		{
+			perror("bash: cd: argument error\n");
+			return (1);
+		}
+		else if (chdir(args[1]) != 0)
+			perror("error");
+	}
 	return (0);
 }
 
