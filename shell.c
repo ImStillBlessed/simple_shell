@@ -9,7 +9,7 @@ int main(void)
 {
 	char *cmd = NULL, *cmd_cpy = NULL;
 	size_t buff = 0;
-	int ac, i = 3;
+	int ac;
 	char **av = NULL;
 	pid_t pid;
 
@@ -82,7 +82,7 @@ int check(char **args, int argc)
  */
 int count(char *str)
 {
-	char *token, *args, *delim = " \n";
+	char *token, *delim = " \n";
 	int i = 0;
 
 	if (str == NULL)
