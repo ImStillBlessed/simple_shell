@@ -1,4 +1,1 @@
-Clone linux shell terminal
-Authours
-Oigbochie Blessed
-Asmaa Elsayed
+This is Simple Shell Project
