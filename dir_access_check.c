@@ -1,5 +1,4 @@
 #include "custom_shell.h"
-/* Betty done */
 
 /**
  * custom_directory_check - Checks if a directory exists and is accessible.

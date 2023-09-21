@@ -1,5 +1,4 @@
 #include "custom_shell.h"
-/* BETTY OKAY */
 
 /**
  * custom_check_exit - Checks if command is an "exit" command and handles it.

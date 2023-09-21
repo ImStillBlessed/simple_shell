@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include "shell.h"
+#include "custom_shell.h"
 
 /**
  * remove_comments - Removes comments from the input string.
