@@ -1,110 +1,121 @@
-#include "custom_shell.h"
+#include "main.h"
 
 /**
- * custom_strlen - returns the length of a string
- * @s: a pointer to the string
- *
- * This function takes a pointer to a
- * string and counts the number of characters
- * in the string using a loop. It returns the length of
- * the string as an integer.
- *
- * Return: the length of the string as an integer.
+ *_strcat -  append
+ *@src: source
+ *@dest: destination
+ *Return: returns
  */
-int custom_strlen(char *s)
-{
-	int length = 0;
 
-	while (*s != '\0')
+char *_strcat(char *dest, char *src)
+{
+	char *ptr = dest;
+
+	while (*ptr != '\0')
+		ptr++;
+	while (*src != '\0')
 	{
-		length++;
-		s++;
+		*ptr = *src;
+		ptr++;
+		src++;
 	}
-	return (length);
+	*ptr = '\0';
+	return (dest);
 }
 
 /**
- * custom_strdup - Returns a pointer to a newly allocated space in memory,
- * which contains a copy of the string given as a parameter.
- * @str: The string to duplicate
- * Return: If str is NULL or if malloc() fails - NULL
+ *_strcmp - a function compares chars from strings
+ *@s1: first string
+ *@s2: second string
+ *Return: always result of diffrence of two char in s1 and s2 or 0
  */
-char *custom_strdup(char *str)
-{
-	int len;
-	char *arr;
 
-	if (str == NULL)
-		return (NULL);
-	len = custom_strlen(str);
-	arr = malloc((sizeof(char) * len) + 1);
-	if (arr == NULL)
-		return (NULL);
-	arr[len] = '\0';
-	while (len--)
-		arr[len] = str[len];
-	return (arr);
-}
-
-/**
- * custom_strcmp - Compares two strings.
- *
- * @s1: Pointer to the first string to be compared.
- * @s2: Pointer to the second string to be compared.
- *
- * Return: An integer less than, equal to, or greater than zero
- */
-int custom_strcmp(char *s1, char *s2)
+int _strcmp(char *s1, char *s2)
 {
-	while (*s1 && *s2 && *s1 == *s2)
+	int i = 0;
+
+	while (s1[i] != '\0' && s2[i] != '\0')
 	{
-		if (*s1 != *s2)
+		if (s1[i] != s2[i])
 		{
-			return ((int)*s1 - (int)*s2);
+			return (s1[i] - s2[i]);
 		}
-		s1++;
-		s2++;
+		i++;
 	}
-
-	return ((int)*s1 - (int)*s2);
+	return (s1[i] - s2[i]);
 }
-/**
- * custom_strcpy - copies a string
- *
- * @dest: destination string
- * @src: source string
- * Return: pointer to destination string
- */
-char *custom_strcpy(char *dest, char *src)
-{
-	int i;
 
-	for (i = 0; src[i] != '\0'; i++)
-	{
-		dest[i] = src[i];
-	}
-	dest[i] = '\0';
+/**
+ *_memcpy - function copies memory area.
+ *@dest: destination
+ *@src: source
+ *@n: bytes from memory
+ *Return: returns dest
+ */
+
+char *_memcpy(char *dest, char *src, unsigned int n)
+{
+	unsigned int i;
+
+	for (i = 0; i < n; i++)
+		{
+		*(dest + i) = *(src + i);
+		}
 	return (dest);
 }
 
-
 /**
- * custom_strcat - concats two arrays
- *
- * @dest: destination of concat
- * @src: source array to concat
- * Return: a pointer to the resulting string dest
+ *_strchr - function locates character in string.
+ *@s: main string
+ *@c: character be exaamened
+ *Return: returns
  */
-char *custom_strcat(char *dest, char *src)
-{
-	int len, i;
 
-	len = custom_strlen(dest);
-	for (i = 0; src[i] != '\0'; i++)
+char *_strchr(char *s, char c)
+{
+	char *ps = s;
+
+	while (*ps)
 	{
-		dest[len + i] = src[i];
+		if (*ps == c)
+		{
+			return (ps);
+		}
+		ps++;
 	}
-	dest[len + i] = '\0';
-	return (dest);
+	if (!c)
+	{
+		return (ps);
+	}
+	return (0);
 }
 
+/**
+ *_strncmp - string compare function
+ *@str1: first string
+ *@str2: second string
+ *@num: how many chars to compared
+ *Return: returns
+ */
+
+int _strncmp(const char *str1, const char *str2, size_t num)
+{
+	size_t i;
+
+	for (i = 0; i < num && str1[i] != '\0' && str2[i] != '\0'; ++i)
+	{
+		if (str1[i] != str2[i])
+			return ((str1[i] - str2[i]));
+	}
+
+	if (i == num)
+		return (0);
+
+	if (str1[i] != '\0')
+		return (1);
+
+	if (str2[i] != '\0')
+		return (-1);
+
+	return (0);
+}

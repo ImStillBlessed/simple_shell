@@ -1,44 +1,81 @@
-#include "custom_shell.h"
+#include "main.h"
 
 /**
- * printErrorMessage - Prints an error message to the standard error stream.
- * @shellProgramName: The name of the shell program.
- * @commandCount: The command count.
- * @errorCommand: The command or argument causing the error.
- * @errorType: The type of error.
- * Return: Nothing.
- */
-void printErrorMessage(char *shellProgramName, int commandCount,
-		char *errorCommand, int errorType)
+ *getCmdArgs - gets command and its args
+ *@data: all relevent data
+ *@path: the path to executable command
+*/
+
+
+void getCmdArgs(shell_data *data, char *path)
 {
-	char *countString;
+	char *command = _strdup(_strtok(path, " "));
 
-	/* Convert the command count to a string */
-	countString = intToString(commandCount);
-
-	/* Print the shell program name, command count, and colon separator */
-	write(STDERR_FILENO, shellProgramName, _strlen(shellProgramName));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, countString, _strlen(countString));
-	write(STDERR_FILENO, ": ", 2);
-
-	/* Check the type of error and print the corresponding error message */
-	if (errorType == EXIT_ERROR)
-	{
-		write(STDERR_FILENO, "Illegal number: ", 16);
-		write(STDERR_FILENO, errorCommand, _strlen(errorCommand));
-		write(STDERR_FILENO, "\n", 1);
-	}
-	else if (errorType == NOT_FOUND)
-	{
-		write(STDERR_FILENO, "not found\n", 10);
-	}
-	else if (errorType == PERMISSION_DENIED)
-	{
-		write(STDERR_FILENO, "Permission denied\n", 18);
-	}
-
-	/* Free the memory allocated for the converted command count */
-	free(countString);
+	data->cmd = (char *)malloc(_strlen(command) + 1);
+	_strcpy(data->cmd, command);
+	data->args[0] = (char *)malloc(_strlen(command) + 1);
+	_strcpy(data->args[0], command);
+	free(command);
 }
 
+/**
+ *errorMaker - makes  error messege
+ *@data: shell's data
+ *@str1: part of messege
+ *@str2: part of messege
+ *Return: pointer to error messege
+*/
+
+char *errorMaker(shell_data *data, char *str1, char *str2)
+{
+	char *errorMsg = NULL;
+
+	errorMsg = malloc(sizeof(char) * 64);
+	if (errorMsg == NULL)
+		return (NULL);
+
+	_strcpy(errorMsg, str1);
+	_strcat(errorMsg, " : ");
+	_strcat(errorMsg, data->input);
+	_strcat(errorMsg, str2);
+
+	return (errorMsg);
+}
+
+
+/**
+ *isPath - handles path
+ *Return: pointer to path
+*/
+
+char *isPath(void)
+{
+	char *path_copy;
+	char *path = _getenv("PATH");
+
+	if (!path)
+		path_copy = strdup("/usr/local/bin:/usr/bin:/bin");
+	else if ((_strcmp(path, "") == 0))
+		path_copy = _strdup("");
+	else
+		path_copy = _strdup(path);
+	return (path_copy);
+}
+
+/**
+ *printError - prints error
+ *@data: shell's data
+ *@str1: part of messege
+ *@str2: part of messege
+ *@status: status of shell
+*/
+
+void printError(shell_data *data, char *str1, char *str2, int status)
+{
+	char *errormsg;
+
+	errormsg = errorMaker(data, str1, str2);
+	write(STDERR_FILENO, errormsg, _strlen(errormsg));
+	free(errormsg);
+	data->status = status;
+}

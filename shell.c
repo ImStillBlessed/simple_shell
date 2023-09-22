@@ -1,63 +1,70 @@
-#include "custom_shell.h"
+#include "main.h"
 
 /**
- * main - Function that runs the SHELL program.
- * @argumentCount: Argument Count.
- * @argumentVector: Argument vector.
- * @environmentVariables: The shell environment.
- * Return: Exit status of the program.
- */
-int main(int argumentCount, char *argumentVector[]
-		, char *environmentVariables[])
-{
-	int *exitStatus, commandCount = 0, isNonInteractive = 1
-		, shellStatus = 0, operationMode;
-	char *userCommand, **commandLines, **commandArray = NULL;
-	list_paths *currentPath;
+ *displayPrompt - displays prompt
+ *Return: 0 for success
+*/
 
-	exitStatus = &shellStatus;
-	operationMode = custom_determine_mode(argumentCount);
-	if (operationMode != INTERACTIVE_MODE)
+/*int displayPrompt(void)
+{
+	char buffer[1024];
+
+	if (getcwd(buffer, sizeof(buffer)) == NULL)
 	{
-		commandLines = processCommandFiles(operationMode
-				, argumentVector[1], argumentVector[0]);
+		perror("getcwd");
+		return (-1);
 	}
-	currentPath = createPathList(); /* Turning path current to linked list. */
-	while (isNonInteractive && ++commandCount)
+	printString("\n");
+	printString("(\x1B[36m$\x1B[0m)--[");
+	printString("\x1B[35m");
+	printString(buffer);
+	printString("\x1B[0m");
+	printString("]--(\x1B[36m$\x1B[0m)\n");
+	printString("\x1B[91m>>\x1B[0m ");
+	return (0);
+}*/
+
+/**
+ *loopPrompt - shell's loop
+ *@data: shell's data
+*/
+
+void loopPrompt(shell_data *data)
+{
+	int n, count, eof, loop = 1;
+	size_t buff;
+	char *input_copy;
+
+	while (loop == 1)
 	{
-		if (operationMode == NON_INTERACTIVE_MODE ||
-				operationMode == NON_INTERACTIVE_PIPE)
+		/*displayPrompt();*/
+		write(STDIN_FILENO, "($) ", 4);
+		eof = _getline(&data->input, &buff, stdin);
+		if (eof != -1)
 		{
-			if (commandLines[commandCount - 1])
-				userCommand = commandLines[commandCount - 1];
+			data->exitstring = 0;
+			input_copy = _strdup(data->input);
+			count = countTokens(input_copy, " ");
+			if ((_strncmp(data->input, "exit", 4) == 0) && (count == 1 || count == 2))
+				free(input_copy);
+			n = inputFix(data);
+			if (n == 0)
+				commandChecker(data);
+			else if (n == 2)
+				printEnv(data);
+			if (data->exitstring != 1)
+				free(input_copy);
+		}
+		else
+		{
+			loop = 0;
+			if (data->space != 1)
+				free(data->input);
 			else
 			{
-				custom_free_resources(commandLines);
-				break;
+				data->input = _strdup(input_copy);
+				free(data->input);
 			}
 		}
-		else if (operationMode == INTERACTIVE_MODE)
-			userCommand = getUserInput(currentPath); /* Prompt user and get command. */
-		if (!userCommand)
-			continue;
-		commandArray = convert_line_to_array(userCommand, *exitStatus);
-		if (!commandArray)
-		{
-			custom_free_resources(userCommand);
-			continue;
-		}
-		if (custom_directory_check(commandArray[0], argumentVector, commandCount
-					, commandArray, exitStatus, userCommand) == 0)
-			continue;
-		if (custom_builtin_handler(userCommand, commandArray, currentPath
-					, argumentVector[0], commandCount, exitStatus, NULL, commandLines,
-					argumentVector) != 0) {
-			handleNonBuiltinCommand(commandArray, environmentVariables,
-					exitStatus, commandCount, currentPath, argumentVector);
-		}
-		custom_free_resources(userCommand, commandArray);
-
 	}
-	freePathList(currentPath);
-	exit(*exitStatus);
 }
