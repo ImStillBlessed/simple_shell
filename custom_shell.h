@@ -42,11 +42,11 @@ list_paths *addPathNode(list_paths **head, char *path);
 unsigned int custom_char_count(char *string, char character);
 /*-----------*/
 
-int _strlen(char *s);
-char *_strdup(char *str);
-int _strcmp(char *s1, char *s2);
-char *_strcpy(char *dest, char *src);
-char *_strcat(char *dest, char *src);
+int custom_strlen(char *s);
+char *custom_strdup(char *str);
+int custom_strcmp(char *s1, char *s2);
+char *custom_strcpy(char *dest, char *src);
+char *custom_strcat(char *dest, char *src);
 int custom_atoi(char *s);
 /*----------*/
 void displayEnvironmentVariables(int *status);
@@ -78,7 +78,7 @@ char **processShellCommandsFromFile(char *file_name, char *shell_name);
 int custom_directory_check(char *command, char **argument_vector, int count,
 		char **command_array, int *status, char *command_line_before);
 char *intToString(int number);
-char **text_to_array(char *text_read);
+char **convert_text_to_array(char *text_input);
 void custom_file_open_handler(char *program_name, int counter
 		, char *file_name);
 unsigned int countCharacterOccurrences(char *string, char c);

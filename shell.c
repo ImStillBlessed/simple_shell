@@ -17,15 +17,12 @@ int main(int argumentCount, char *argumentVector[]
 
 	exitStatus = &shellStatus;
 	operationMode = custom_determine_mode(argumentCount);
-
 	if (operationMode != INTERACTIVE_MODE)
 	{
 		commandLines = processCommandFiles(operationMode
 				, argumentVector[1], argumentVector[0]);
 	}
-
 	currentPath = createPathList(); /* Turning path current to linked list. */
-
 	while (isNonInteractive && ++commandCount)
 	{
 		if (operationMode == NON_INTERACTIVE_MODE ||
@@ -41,32 +38,26 @@ int main(int argumentCount, char *argumentVector[]
 		}
 		else if (operationMode == INTERACTIVE_MODE)
 			userCommand = getUserInput(currentPath); /* Prompt user and get command. */
-
 		if (!userCommand)
 			continue;
-
 		commandArray = convert_line_to_array(userCommand, *exitStatus);
-
 		if (!commandArray)
 		{
 			custom_free_resources(userCommand);
 			continue;
 		}
-
 		if (custom_directory_check(commandArray[0], argumentVector, commandCount
 					, commandArray, exitStatus, userCommand) == 0)
 			continue;
-
 		if (custom_builtin_handler(userCommand, commandArray, currentPath
-					, argumentVector[0], commandCount, exitStatus
-					, NULL, commandLines, argumentVector) != 0)
-			handleNonBuiltinCommand(commandArray, environmentVariables
-					, exitStatus, commandCount, currentPath, argumentVector);
-
+					, argumentVector[0], commandCount, exitStatus, NULL, commandLines,
+					argumentVector) != 0) {
+			handleNonBuiltinCommand(commandArray, environmentVariables,
+					exitStatus, commandCount, currentPath, argumentVector);
+		}
 		custom_free_resources(userCommand, commandArray);
-	}
 
+	}
 	freePathList(currentPath);
 	exit(*exitStatus);
 }
-
