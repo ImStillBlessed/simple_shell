@@ -2,7 +2,7 @@
 
 /**
  *displayPrompt - displays prompt
- *Return: 0 for success
+ *Return: must return 0 for success
 */
 
 /*int displayPrompt(void)
@@ -25,8 +25,8 @@
 }*/
 
 /**
- *loopPrompt - shell's loop
- *@data: shell's data
+ *loopPrompt - shell loop
+ *@data: shell data
 */
 
 void loopPrompt(shell_data *data)

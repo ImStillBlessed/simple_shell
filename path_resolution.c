@@ -2,14 +2,14 @@
 
 /**
  *inputFix - fixes input from \n and spaces
- *@data: all relevent data
- *Return: 0 for success
+ *@data: relevent data
+ *Return: must return 0 for success
  */
 
 int inputFix(shell_data *data)
 {
 	int cp = 0;
-	/*char *errormsg;*/
+	/*char *error_message;*/
 
 	escapeChars(data);
 	removeExtraSpace(data);
@@ -52,7 +52,7 @@ void commandChecker(shell_data *data)
  *checkSlash - functions check slash command
  *@data: command line
  *@lepath: path from previous function
- *Return: 0 for first case, 2 for second case
+ *Return: should return 0 for first case, 2 for second case
  */
 
 int checkSlash(shell_data *data, char *lepath)
@@ -75,8 +75,8 @@ int checkSlash(shell_data *data, char *lepath)
 
 /**
  *isExecutable - is file executable
- *@data: shell's data
- *Return: 0 for success
+ *@data: shell data
+ *Return: must return 0 for success
 */
 
 int isExecutable(shell_data *data)

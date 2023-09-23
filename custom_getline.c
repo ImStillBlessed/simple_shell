@@ -18,9 +18,9 @@ size_t malloc_usable_size(const void *ptr)
 }
 
 /**
- * _getc - a fucntion checks if it's end of line or not
+ * _getc - fucntion checks if it is end of line or not
  * @stream: the stream
- * Return: either 0 o 1
+ * Return: should return either 0 o 1
  */
 
 int _getc(FILE *stream)
@@ -31,10 +31,10 @@ int _getc(FILE *stream)
 	return ((bytes_read == 1) ? ch : EOF);
 }
 /**
- * _realloc - a fucntion realocate memory
- * @ptr: string we are relocating
+ * _realloc - fucntion realocates memory
+ * @ptr: string is being relocated
  * @size: new allocation
- * Return: new realocated memory
+ * Return: should return new realocated memory
  */
 
 void *_realloc(void *ptr, size_t size)
@@ -66,11 +66,11 @@ void *_realloc(void *ptr, size_t size)
 	return (new_ptr);
 }
 /**
- * _getline - takes ipnut from user
- * @lineptr: adress of input
+ * _getline - takes inputt from user
+ * @lineptr: address of input
  * @n: buffer
  * @stream: STDIN
- * Return: either 0 or -1
+ * Return: should return either -1 or 0
  */
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)

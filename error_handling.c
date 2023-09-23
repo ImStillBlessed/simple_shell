@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- *getCmdArgs - gets command and its args
- *@data: all relevent data
- *@path: the path to executable command
+ *getCmdArgs - gets command and argument
+ *@data: relevent data
+ *@path: path to executable command
 */
 
 
@@ -20,7 +20,7 @@ void getCmdArgs(shell_data *data, char *path)
 
 /**
  *errorMaker - makes  error messege
- *@data: shell's data
+ *@data: shell data
  *@str1: part of messege
  *@str2: part of messege
  *Return: pointer to error messege
@@ -64,10 +64,10 @@ char *isPath(void)
 
 /**
  *printError - prints error
- *@data: shell's data
+ *@data: shell data
  *@str1: part of messege
  *@str2: part of messege
- *@status: status of shell
+ *@status: shell status
 */
 
 void printError(shell_data *data, char *str1, char *str2, int status)

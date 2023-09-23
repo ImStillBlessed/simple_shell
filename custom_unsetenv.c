@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- *_unsetenv - unsets env var
- *@data: shell's data
- *Return: 0 on success
+ *_unsetenv - unsets environment variable
+ *@data: shell data
+ *Return: must return 0 on success
 */
 
 int _unsetenv(shell_data *data)
@@ -32,7 +32,7 @@ int _unsetenv(shell_data *data)
 
 /**
  *unsetenvCommand - unsetenv command
- *@data: shell's data
+ *@data: shell data
 */
 
 void unsetenvCommand(shell_data *data)

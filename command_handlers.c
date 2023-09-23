@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- *isBuildin - checks if cmd is a building
- *@data: shell's data
+ *isBuildin - checks if cmd is building
+ *@data: shell data
 */
 
 
@@ -27,7 +27,7 @@ void isBuildin(shell_data *data)
 
 /**
  *cdCommand - handles cd
- *@data: shell's data
+ *@data: shell data
 */
 
 void cdCommand(shell_data *data)
@@ -52,7 +52,7 @@ void cdCommand(shell_data *data)
 
 /**
  *exitCommand - handles exit command
- *@data:shell's data
+ *@data:shell data
 */
 
 void exitCommand(shell_data *data)
@@ -88,7 +88,7 @@ void exitCommand(shell_data *data)
 }
 
 /**
- *PrintEnv - prints the environment
+ *PrintEnv - prints environment
  *@data:shell data
 */
 

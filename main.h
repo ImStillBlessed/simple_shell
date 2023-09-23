@@ -3,15 +3,16 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
+#include <signal.h>
+#include <errno.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <dirent.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include <signal.h>
-#include <errno.h>
+
 
 #define ENOREC 100
 #define MAX_ENV 100
@@ -19,11 +20,11 @@
 extern char **environ;
 
 /**
- *struct data - struct contains all shell data
- *@av: args vector
+ *struct data - struct contains shell data
+ *@av: argument vector
  *@input: command line written by user
  *@args: tokens of command line
- *@status: last status of shell
+ *@status: last shell status
  *@cmd: command
  *@_environ: environment variable
  *@space: checks space

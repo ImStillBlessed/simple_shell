@@ -2,9 +2,9 @@
 
 /**
  *main - main
- *@ac: arg count
- *@av: arg vector
- *Return: 0 on success
+ *@ac: argument count
+ *@av: argument vector
+ *Return: should return 0 on success
  */
 
 int main(int ac, char **av)

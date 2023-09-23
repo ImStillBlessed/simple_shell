@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- *_strncpy - fucntion append two strings to one
- *@dest: string will be copied to
- *@src: string will be copied from
+ *_strncpy - fucntion append two string to one
+ *@dest: string copied to
+ *@src: string copied from
  *@n:buffer
- *Return: always string of chars
+ *Return: string of characters
  */
 
 
@@ -29,9 +29,9 @@ char *_strncpy(char *dest, const char *src, size_t n)
 }
 
 /**
- *_isdigit - checks if char is num
- *@c: char
- *Return: not NULL for success
+ *_isdigit - checks if character is num
+ *@c: character
+ *Return: should not return NULL for success
 */
 
 int _isdigit(int c)
@@ -42,7 +42,7 @@ int _isdigit(int c)
 /**
  *isNumber - checks if string is number
  *@str: string to examened
- *Return: 0 for success
+ *Return: should return 0 for success
 */
 
 int isNumber(char *str)
@@ -91,8 +91,8 @@ char *_strtok(char *str, char *del)
 /**
  *_strpbrk - function gets length of prefix substring.
  *@s: string s
- *@accept: another string
- *Return: returns smtg
+ *@accept: string
+ *Return: should returns smtg
  */
 
 char *_strpbrk(char *s, char *accept)

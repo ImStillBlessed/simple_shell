@@ -27,7 +27,7 @@ char *_strcat(char *dest, char *src)
  *_strcmp - a function compares chars from strings
  *@s1: first string
  *@s2: second string
- *Return: always result of diffrence of two char in s1 and s2 or 0
+ *Return: return result of diffrence between  two character in s1 and s2 or 0
  */
 
 int _strcmp(char *s1, char *s2)
@@ -50,7 +50,7 @@ int _strcmp(char *s1, char *s2)
  *@dest: destination
  *@src: source
  *@n: bytes from memory
- *Return: returns dest
+ *Return: should return destination
  */
 
 char *_memcpy(char *dest, char *src, unsigned int n)
@@ -94,7 +94,7 @@ char *_strchr(char *s, char c)
  *_strncmp - string compare function
  *@str1: first string
  *@str2: second string
- *@num: how many chars to compared
+ *@num: how many characters to compared
  *Return: returns
  */
 

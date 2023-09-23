@@ -2,7 +2,7 @@
 
 /**
  *getWorkingDirectory - gets working directory
- *Return: pointer to the current working dir
+ *Return: pointer current working directory
 */
 
 char *getWorkingDirectory()
@@ -18,9 +18,9 @@ char *getWorkingDirectory()
 }
 
 /**
- *cdHome - change directory to home
- *@data: shell's data
- *Return: 0 for success
+ *cdHome - changing directory to home
+ *@data: shell data
+ *Return: must return 0 for success
 */
 
 int cdHome(shell_data *data)
@@ -52,8 +52,8 @@ int cdHome(shell_data *data)
 
 /**
  *cdDirAbsolute - cd with absolute path
- *@data: shell's data
- *Return: 0 for success
+ *@data: shell data
+ *Return: must return 0 for success
 */
 
 int cdDirAbsolute(shell_data *data)
@@ -94,8 +94,8 @@ int cdDirAbsolute(shell_data *data)
 
 /**
  *cdDirRelative - cd with relative path
- *@data: shell's data
- *Return: 0 for success
+ *@data: shell data
+ *Return: must return 0 for success
 */
 
 int cdDirRelative(shell_data *data)
@@ -128,9 +128,9 @@ int cdDirRelative(shell_data *data)
 }
 
 /**
- *cdOldPwd - cd to old dir
- *@data: Shell's data
- *Return: 0 for success
+ *cdOldPwd - cd to old directory
+ *@data: Shell data
+ *Return: must return 0 for success
 */
 
 int cdOldPwd(shell_data *data)

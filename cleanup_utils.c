@@ -3,7 +3,7 @@
 /**
  *free_data - frees data structure
  *@data: data structure
- *Return: no return
+ *Return: should return nothing
  */
 
 void free_data(shell_data *data)
@@ -22,8 +22,8 @@ void free_data(shell_data *data)
 }
 
 /**
- *freeInputArgsData - frees input and args
- *@data: shell's data
+ *freeInputArgsData - frees input and arguments
+ *@data: shell data
  *@num1: 0 frees input
  *@num2: 0 frees args
  *@num3: 0 calls free_data;

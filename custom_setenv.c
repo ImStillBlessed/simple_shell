@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- *_cdSetenv - sets specific var
- *@data: shell's data
+ *_cdSetenv - sets specific variable
+ *@data: shell data
  *@var: variable
  *@value: its value
- *Return: 0 on success
+ *Return: should return 0 on success
 */
 
 int _cdSetenv(shell_data *data, char *var, char *value)
@@ -35,9 +35,9 @@ int _cdSetenv(shell_data *data, char *var, char *value)
 	return (-1);
 }
 /**
- *_setenv - sets env var
- *@data: shell's data
- *Return: 0 on success
+ *_setenv - sets environment variable
+ *@data: shell data
+ *Return: should return 0 on success
 */
 
 int _setenv(shell_data *data)
@@ -78,7 +78,7 @@ int _setenv(shell_data *data)
 
 /**
  *setenvCommand - command for setenv
- *@data: shell's data
+ *@data: shell data
 */
 
 void setenvCommand(shell_data *data)

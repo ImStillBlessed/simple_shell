@@ -2,7 +2,7 @@
 
 /**
  *escapeChars - change \n with \0
- *@data: shell's data
+ *@data: shell data
  */
 
 
@@ -22,7 +22,7 @@ void escapeChars(shell_data *data)
 
 /**
  *removeExtraSpace - removes extra space
- *@data: shell's data
+ *@data: shell data
  */
 
 void removeExtraSpace(shell_data *data)
@@ -60,7 +60,7 @@ void removeExtraSpace(shell_data *data)
 
 /**
  *fixDataInput - handles input
- *@data: shell's data
+ *@data: shell data
  */
 
 void fixDataInput(shell_data *data)
@@ -85,9 +85,9 @@ void fixDataInput(shell_data *data)
 }
 
 /**
- *isOnlyNull - checks if input is empty string
- *@data: all relevent data
- *Return: 0 if not NULL
+ *isOnlyNull - checks if input empty string
+ *@data: relevent data
+ *Return:must return 0 if not NULL
  */
 
 int isOnlyNull(shell_data *data)

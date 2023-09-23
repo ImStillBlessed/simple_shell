@@ -13,7 +13,7 @@ void sigintHandler(int signal)
 }
 
 /**
- *errorHandler - functions handle errors
+ *errorHandler -  handle errors
  *@data: command line
  */
 
@@ -25,7 +25,7 @@ void errorHandler(shell_data *data)
 
 /**
  *setData - sets data for shell
- *@data: shell's data
+ *@data: shell data
  *@av: argv
 */
 
@@ -61,8 +61,8 @@ void setData(shell_data *data, char **av)
 }
 
 /**
- *commandExe - function executes comands
- *@data: shell's data
+ *commandExe - executes commands
+ *@data: shell data
 */
 
 void commandExe(shell_data *data)
